@@ -2,9 +2,8 @@ import random
 __author__ = 'Yusuke Higuchi'
 
 
-# Fixme: 1.) need non-player character (NPC) to compete with.
-# Fixme: 2.) better to have an option to threw a dice when getting 6
-# Fixme: 3.) if-else statement, lines between 64 and 77, is incomplete
+# Fixme: 1.) What to need: non-player character (NPC) to compete with.
+# Fixme: 2.) How user will compete with the NPC. Need to improve if-else logic
 
 class Dice:
     """
@@ -31,47 +30,58 @@ class Dice:
         print "The total:", self.user_num
 
         while self.dice_rolled == 6:
-            # a user keep rolling a dice while continuously getting 6
-            self.user_num += self.dice_rolled
-            print "Your dice was 6, and you can threw a dice again." \
-                  "\nNow, the total is", self.user_num
 
-            self.dice_play(self.user_num)
+            dice_six_option = raw_input("\n>>>You got 6. If you don't want to throw a dice, type N<<<")
+
+            if dice_six_option.lower != "n":
+
+                # self.user_num += self.dice_rolled
+                # print "\nNow, the total is", self.user_num
+                self.dice_play(self.user_num)
+
+            else:
+                break
 
         return self.user_num
 
 
 player1 = Dice()
+player2 = Dice()
+
 player1.user_num = player1.dice_rolled
 print "The first dice was", player1.user_num
 while player1.user_num == 6:
-    player1.dice_play(player1.user_num)
+    input_dice_is_six = raw_input(">>>You got 6. If you don't want to throw a dice, type N<<<")
+    if input_dice_is_six.lower() != "n":
+        player1.dice_play(player1.user_num)
+    else:
+        break
+
+user_input = raw_input("\n>>>Enter to throw a dice, s to stop<<<")
 
 
-user_input = raw_input("\n>>>Enter 1 to roll a dice<<<")
-
-
-while user_input == "1":
+while user_input.lower() != "s":
 
     while player1.dice_rolled == 6:
-        player1.user_num = player1.dice_play(player1.user_num)
+        input_dice_is_six = raw_input(">>>You got 6. If you don't want to throw a dice, type N<<<")
+        if input_dice_is_six.lower() == "n":
+            player1.dice_play(player1.user_num)
+        else:
+            break
 
     player1.user_num = player1.dice_play(player1.user_num)
 
-    user_input = raw_input("\n>>>>>Enter 1 to roll a dice<<<<<")
+    user_input = raw_input("\n>>>Enter to throw a dice, s to quit<<<")
 
 
 if player1.user_num == 21:
     print "You win!"
 
 else:
-    user_input = raw_input("\nDo you want to roll a dice, or stop here?"
-                           "\nType \"No\" to stop, otherwise you roll a dice")
+    print player1.user_num
 
-    if user_input.lower() != "no":
-        player1.user_num = player1.dice_play(player1.user_num)
-        print "Total:",
-        print player1.user_num
-
-    else:
-        print player1.user_num
+# for i in range(0, 6):
+#     while player2.dice_rolled == 6:
+#         player2.user_num = player2.dice_play(player2.user_num)
+#
+#     player2.user_num = player2.dice_play(player2.user_num)
