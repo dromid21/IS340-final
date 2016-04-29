@@ -1,4 +1,5 @@
 import random
+
 __author__ = 'Yusuke Higuchi'
 
 
@@ -8,80 +9,101 @@ __author__ = 'Yusuke Higuchi'
 class Dice:
     """
     Creating a class for a dice.
-    The user number initially start with a random integer between 1 and 6.
-    Then every time dice_play() is called, another random integer is added to the user number.
+    The user_score is initially 0, and the first dice number is added to the score.
+    The dice number is always an integer between 1 and 6.
+    Then every time dice_play() is called, another random integer is added to the user_score.
     """
+
+# this is the first method in class Dice
     def __init__(self):
-        self.user_num = 0
+        self.user_score = 0
         self.dice_rolled = random.randint(1, 6)
 
+# this is the second method in this Dice
     def dice_play(self, x):
         """
-        This is a function for adding numbers.
-        When the function is called, the user roll another dice, and add to the current user number.
+        This is a function for playing a dice roll and adding a number to the current user score.
+        When this method is called, a random integer is assigned as dice_rolled, and then add to user_score.
+        While that integer is 6, the user is allowed to threw another dice in the same turn.
         """
+
+        # a random integer is assigned to an object
         self.dice_rolled = random.randint(1, 6)
 
         print "\nRolled another dice, and the number was", self.dice_rolled
 
-        self.user_num = x + self.dice_rolled
         # Actually adding an argument, the current user_number and the dice rolled during this turn
+        self.user_score = x + self.dice_rolled
 
-        print "The total:", self.user_num
+        print "The total:", self.user_score
 
+        # loop while the user get 6
         while self.dice_rolled == 6:
 
+            # giving the user an option to throw a dice
             dice_six_option = raw_input("\n>>>You got 6. If you don't want to throw a dice, type N<<<")
 
+            # if the user input is not N or n, execute dice_play() method inside itself
+            # otherwise, break the loop
             if dice_six_option.lower != "n":
 
-                # self.user_num += self.dice_rolled
-                # print "\nNow, the total is", self.user_num
-                self.dice_play(self.user_num)
+                # self.user_score += self.dice_rolled
+                # print "\nNow, the total is", self.user_score
+                self.dice_play(self.user_score)
 
             else:
                 break
 
-        return self.user_num
+        return self.user_score
 
 
-player1 = Dice()
-player2 = Dice()
+player1 = Dice()    # instantiating player 1
+player2 = Dice()    # instantiating player 2
 
-player1.user_num = player1.dice_rolled
-print "The first dice was", player1.user_num
-while player1.user_num == 6:
+
+# the dice_rolled is assigned to the user_score, and print the result
+player1.user_score = player1.dice_rolled
+print "The first dice was", player1.user_score
+
+# loop if the first dice rolled is 6, otherwise go to the next operation
+while player1.user_score == 6:
+
+    # for the first dice giving the user an option to throw a dice
     input_dice_is_six = raw_input(">>>You got 6. If you don't want to throw a dice, type N<<<")
     if input_dice_is_six.lower() != "n":
-        player1.dice_play(player1.user_num)
+        player1.dice_play(player1.user_score)
     else:
         break
 
-user_input = raw_input("\n>>>Enter to throw a dice, s to stop<<<")
+# the user can continue to throw a dice
+user_input = raw_input("\n>>>Enter to throw a dice, type s to stop<<<")
 
-
+# loop until the user enter s or S
+# from the second dice to the Nth dice are executed
 while user_input.lower() != "s":
 
     while player1.dice_rolled == 6:
         input_dice_is_six = raw_input(">>>You got 6. If you don't want to throw a dice, type N<<<")
         if input_dice_is_six.lower() == "n":
-            player1.dice_play(player1.user_num)
+            player1.dice_play(player1.user_score)
         else:
             break
 
-    player1.user_num = player1.dice_play(player1.user_num)
+    # adding a dice_rolled to the cumulative user score
+    player1.user_score = player1.dice_play(player1.user_score)
 
-    user_input = raw_input("\n>>>Enter to throw a dice, s to quit<<<")
+    # the user can quit the dice game by entering s
+    user_input = raw_input("\n>>>Enter to throw a dice, type s to stop<<<")
 
 
-if player1.user_num == 21:
+if player1.user_score == 21:
     print "You win!"
 
 else:
-    print player1.user_num
+    print player1.user_score
 
 # for i in range(0, 6):
 #     while player2.dice_rolled == 6:
-#         player2.user_num = player2.dice_play(player2.user_num)
+#         player2.user_score = player2.dice_play(player2.user_score)
 #
-#     player2.user_num = player2.dice_play(player2.user_num)
+#     player2.user_score = player2.dice_play(player2.user_score)
