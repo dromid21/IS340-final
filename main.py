@@ -1,6 +1,4 @@
 from userdice import UserDice
-from userdice import comp_dice
-
 import random
 
 
@@ -24,9 +22,9 @@ print "The first dice was", player1.user_score
 while player1.user_score == 6:
 
     # for the first dice giving the user an option to throw a dice
-    input_dice_is_six1 = raw_input(">>>You got 6. If you don't want to throw a dice, type N<<<")
+    input_dice_is_six1 = raw_input(">>>You got 6. If you don't want to throw a dice, type S<<<")
 
-    if input_dice_is_six1.lower() != "n":
+    if input_dice_is_six1.lower() != "s":
         player1.dice_play(player1.user_score)
     else:
         break
@@ -44,8 +42,8 @@ while user_input.lower() != "s":
     print "Turn", turn_player1
 
     while player1.dice_rolled == 6:
-        input_dice_is_six2 = raw_input(">>>You got 6. If you don't want to throw a dice, type N<<<")
-        if input_dice_is_six2.lower() != "n":
+        input_dice_is_six2 = raw_input(">>>You got 6. If you don't want to throw a dice, type S<<<")
+        if input_dice_is_six2.lower() != "s":
             player1.dice_play(player1.user_score)
         else:
             break
@@ -60,10 +58,10 @@ while user_input.lower() != "s":
 
 
 if player1.user_score == 21:
-    print "\n-->You got 21!!"
+    print "\n-->You got 21 in turn %d!" % turn_player1
 
 else:
-    print "\n-->Your score is", player1.user_score
+    print "\n-->Turn %d: your score is %d" % (turn_player1, player1.user_score)
 
 
 # below is the competitor's play
@@ -77,22 +75,29 @@ comp_score = 0
 while comp_score <= 17:
 
     comp_dice_roll = random.randint(1, 6)
-    print "\nCompetitor's turn", turn_comp
 
-    while comp_dice_roll == 6:
+    print "\n>>>Competitor's turn %d<<<" % turn_comp
+
+    if comp_dice_roll == 6:
         print "The competitor got 6, and always takes advantage of this chance."
-        comp_dice(comp_score)
+        turn_comp -= 1
+
+    else:
+        pass
 
     # adding a dice_rolled to the cumulative user score
-    comp_score = comp_dice(comp_score)
+    comp_score += comp_dice_roll
+
+    print "The dice number was", comp_dice_roll
+    print "Competitor's score:", comp_score
 
     turn_comp += 1
 
 if comp_score == 21:
-    print "-->Comp also got 21!"
+    turn_comp -= 1
+    print "\n-->Comp also got 21 in turn %d!" % turn_comp
 
 else:
-    print "-->Competitor's score is", comp_score
-
-
+    turn_comp -= 1
+    print "\n-->Turn %d: competitor's score is %d" % (turn_comp, comp_score)
 

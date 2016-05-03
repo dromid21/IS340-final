@@ -57,17 +57,17 @@ class UserDice:
         # Actually adding an argument, the current user_number and the dice rolled during this turn
         self.user_score = x + self.dice_rolled
 
-        print "The total:", self.user_score
+        print "Your score:", self.user_score
 
         # loop while the user get 6
         while self.dice_rolled == 6:
 
             # giving the user an option to throw a dice
-            input_dice_is_six = raw_input("\n>>>You got 6. If you don't want to throw a dice, type N<<<")
+            input_dice_is_six = raw_input("\n>>>You got 6. If you don't want to throw a dice, type S<<<")
 
             # if the user input is not N or n, execute dice_play() method inside itself
             # otherwise, break the loop
-            if input_dice_is_six.lower() != "n":
+            if input_dice_is_six.lower() != "s":
 
                 # self.user_score += self.dice_rolled
                 # print "\nNow, the total is", self.user_score
@@ -79,39 +79,29 @@ class UserDice:
         return self.user_score
 
 
-def comp_dice(x):
-    """Returns an integer if the function is called
-
-    This function is used for the competitor's dice roll.
-
-    When this is called, a random number is accumulated to the comp_score.
-    A random integer is assigned as comp_dice_rolled.
-
-    When getting 6, the competitor always throws a dice without counting a turn.
-
-    :param x: an integer or an accumulated competitor's score
-    :type x: integer
-    :return: comp_score: comp_score = x + comp_dice_rolled
-    :rtype: integer
-    
-    """
-
-    # a random integer is assigned to an object
-    comp_dice_rolled = random.randint(1, 6)
-
-    print "\nCompetitor rolled another dice, and the number was", comp_dice_rolled
-
-    # Actually adding an argument, the current user_number and the dice rolled during this turn
-    comp_score = x + comp_dice_rolled
-
-    print "The total:", comp_score
-
-    # loop while the user get 6
-    while comp_dice_rolled == 6:
-
-        # giving the user an option to throw a dice
-        print "The competitor got 6, and always takes advantage of this chance."
-
-        comp_dice(comp_score)
-
-    return comp_score
+# def comp_dice(x):
+#     """Returns an integer if the function is called
+#
+#     This function is used for the competitor's dice roll.
+#
+#     When this is called, a random number is accumulated to the comp_score.
+#     A random integer is assigned as comp_dice_rolled.
+#
+#     When getting 6, the competitor always throws a dice without counting a turn.
+#
+#     :param x: an integer or an accumulated competitor's score
+#     :type x: integer
+#     :return: comp_score: comp_score = x + comp_dice_rolled
+#     :rtype: integer
+#
+#     """
+#
+#     # a random integer is assigned to an object
+#     comp_dice_rolled = random.randint(1, 6)
+#
+#     print "\nCompetitor rolled another dice, and the number was", comp_dice_rolled
+#
+#     comp_score = x + comp_dice_rolled
+#     print "The total:", comp_score
+#
+#     return comp_score
